@@ -202,8 +202,6 @@ function tresEnRaya() {
     }
   );
 
-  console.log(casillasUsadas);
-
   printBoard();
 }
 
