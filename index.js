@@ -170,6 +170,20 @@ function tresEnRaya() {
   rl.question(
     `Por favor selecciona una casilla. Jugador actual : "${currentPlayer}"`,
     (casilla) => {
+      if (casillasUsadas.includes(casilla)) {
+        tresEnRaya();
+        console.log(
+          "Esta casilla ya está siendo utilizada, por favor selecciona otra"
+        );
+        return;
+      }
+
+      if (isNaN(casilla) || casilla < 1 || casilla > board.length) {
+        tresEnRaya();
+        console.log("Inserte una casilla válida");
+        return;
+      }
+
       if (board.indexOf(casilla) >= 0 && currentPlayer === "X") {
         board[casilla - 1] = currentPlayer;
         currentPlayer = "O";
@@ -185,16 +199,10 @@ function tresEnRaya() {
         tresEnRaya();
         return;
       }
-
-      if (casillasUsadas.indexOf(casilla >= 0)) {
-        tresEnRaya();
-        console.log(
-          "esta casilla ya esta siento ultilizada, por favor selecciona otra"
-        );
-        return;
-      }
     }
   );
+
+  console.log(casillasUsadas);
 
   printBoard();
 }
