@@ -7,7 +7,6 @@ const rl = readline.createInterface({
 
 let board = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 let currentPlayer = "X";
-let casillasUsadas = [];
 
 function printBoard() {
   console.log(`
@@ -20,149 +19,41 @@ function printBoard() {
 }
 
 function verificarGanador() {
-  if (
-    (board[0] === "X" && board[1] === "X" && board[2] === "X") ||
-    (board[0] === "O" && board[1] === "O" && board[2] === "O")
-  ) {
-    console.clear();
-    console.log(`¡Terminó el juego! El ganador es el jugador "${board[0]}"`);
-    rl.close();
-    return;
-  } else if (
-    (board[3] === "X" && board[4] === "X" && board[5] === "X") ||
-    (board[3] === "O" && board[4] === "O" && board[5] === "O")
-  ) {
-    console.clear();
-    console.log(`¡Terminó el juego! El ganador es el jugador "${board[3]}"`);
-    rl.close();
-    return;
-  } else if (
-    (board[6] === "X" && board[7] === "X" && board[8] === "X") ||
-    (board[6] === "O" && board[7] === "O" && board[8] === "O")
-  ) {
-    console.clear();
-    console.log(`¡Terminó el juego! El ganador es el jugador "${board[6]}"`);
-    rl.close();
-    return;
-  } else if (
-    (board[0] === "X" && board[3] === "X" && board[6] === "X") ||
-    (board[0] === "O" && board[3] === "O" && board[6] === "O")
-  ) {
-    console.clear();
-    console.log(`¡Terminó el juego! El ganador es el jugador "${board[0]}"`);
-    rl.close();
-    return;
-  } else if (
-    (board[1] === "X" && board[4] === "X" && board[7] === "X") ||
-    (board[1] === "O" && board[4] === "O" && board[7] === "O")
-  ) {
-    console.clear();
-    console.log(`¡Terminó el juego! El ganador es el jugador "${board[1]}"`);
-    rl.close();
-    return;
-  } else if (
-    (board[2] === "X" && board[5] === "X" && board[8] === "X") ||
-    (board[2] === "O" && board[5] === "O" && board[8] === "O")
-  ) {
-    console.clear();
-    console.log(`¡Terminó el juego! El ganador es el jugador "${board[2]}"`);
-    rl.close();
-    return;
-  } else if (
-    (board[0] === "X" && board[4] === "X" && board[8] === "X") ||
-    (board[0] === "O" && board[4] === "O" && board[8] === "O")
-  ) {
-    console.clear();
-    console.log(`¡Terminó el juego! El ganador es el jugador "${board[0]}"`);
-    rl.close();
-    return;
-  } else if (
-    (board[2] === "X" && board[4] === "X" && board[6] === "X") ||
-    (board[2] === "O" && board[4] === "O" && board[6] === "O")
-  ) {
-    console.clear();
-    console.log(`¡Terminó el juego! El ganador es el jugador "${board[2]}"`);
-    rl.close();
-    return;
+  const combinacionesGanadoras = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
+  for (const combinacion of combinacionesGanadoras) {
+    let a = combinacion[0];
+    let b = combinacion[1];
+    let c = combinacion[2];
+    if (board[a] === board[b] && board[c] === board[b]) {
+      return board[a];
+    }
   }
-  if (casillasUsadas.length === board.length) {
-    console.clear();
-    console.log(`Empate!, el juego ha finalizado`);
-    rl.close();
-    return;
-  }
+  return null;
 }
 function tresEnRaya() {
-  console.log("Hola!, bienvenido al juego de tres en raya");
+  const ganador = verificarGanador();
 
-  if (
-    (board[0] === "X" && board[1] === "X" && board[2] === "X") ||
-    (board[0] === "O" && board[1] === "O" && board[2] === "O")
-  ) {
-    console.clear();
-    console.log(`¡Terminó el juego! El ganador es el jugador "${board[0]}"`);
-    rl.close();
-    return;
-  } else if (
-    (board[3] === "X" && board[4] === "X" && board[5] === "X") ||
-    (board[3] === "O" && board[4] === "O" && board[5] === "O")
-  ) {
-    console.clear();
-    console.log(`¡Terminó el juego! El ganador es el jugador "${board[3]}"`);
-    rl.close();
-    return;
-  } else if (
-    (board[6] === "X" && board[7] === "X" && board[8] === "X") ||
-    (board[6] === "O" && board[7] === "O" && board[8] === "O")
-  ) {
-    console.clear();
-    console.log(`¡Terminó el juego! El ganador es el jugador "${board[6]}"`);
-    rl.close();
-    return;
-  } else if (
-    (board[0] === "X" && board[3] === "X" && board[6] === "X") ||
-    (board[0] === "O" && board[3] === "O" && board[6] === "O")
-  ) {
-    console.clear();
-    console.log(`¡Terminó el juego! El ganador es el jugador "${board[0]}"`);
-    rl.close();
-    return;
-  } else if (
-    (board[1] === "X" && board[4] === "X" && board[7] === "X") ||
-    (board[1] === "O" && board[4] === "O" && board[7] === "O")
-  ) {
-    console.clear();
-    console.log(`¡Terminó el juego! El ganador es el jugador "${board[1]}"`);
-    rl.close();
-    return;
-  } else if (
-    (board[2] === "X" && board[5] === "X" && board[8] === "X") ||
-    (board[2] === "O" && board[5] === "O" && board[8] === "O")
-  ) {
-    console.clear();
-    console.log(`¡Terminó el juego! El ganador es el jugador "${board[2]}"`);
-    rl.close();
-    return;
-  } else if (
-    (board[0] === "X" && board[4] === "X" && board[8] === "X") ||
-    (board[0] === "O" && board[4] === "O" && board[8] === "O")
-  ) {
-    console.clear();
-    console.log(`¡Terminó el juego! El ganador es el jugador "${board[0]}"`);
-    rl.close();
-    return;
-  } else if (
-    (board[2] === "X" && board[4] === "X" && board[6] === "X") ||
-    (board[2] === "O" && board[4] === "O" && board[6] === "O")
-  ) {
-    console.clear();
-    console.log(`¡Terminó el juego! El ganador es el jugador "${board[2]}"`);
+  if (ganador) {
+    console.log(`¡Terminó el juego! El ganador es ${ganador}`);
     rl.close();
     return;
   }
-  if (casillasUsadas.length === board.length) {
+  if (
+    board.every((cell) => cell === "X"|| cell === "O") 
+    
+  ) {
     console.clear();
-    console.log(`Empate!, el juego ha finalizado`);
+    console.log("¡Empate!, el juego ha finalizado");
     rl.close();
     return;
   }
@@ -170,7 +61,7 @@ function tresEnRaya() {
   rl.question(
     `Por favor selecciona una casilla. Jugador actual : "${currentPlayer}"`,
     (casilla) => {
-      if (casillasUsadas.includes(casilla)) {
+      if (board[casilla - 1] === "X" || board[casilla - 1] === "O") {
         tresEnRaya();
         console.log(
           "Esta casilla ya está siendo utilizada, por favor selecciona otra"
@@ -187,7 +78,6 @@ function tresEnRaya() {
       if (board.indexOf(casilla) >= 0 && currentPlayer === "X") {
         board[casilla - 1] = currentPlayer;
         currentPlayer = "O";
-        casillasUsadas.push(casilla);
         tresEnRaya();
         return;
       }
@@ -195,7 +85,6 @@ function tresEnRaya() {
       if (board.indexOf(casilla) >= 0 && currentPlayer === "O") {
         board[casilla - 1] = currentPlayer;
         currentPlayer = "X";
-        casillasUsadas.push(casilla);
         tresEnRaya();
         return;
       }
@@ -205,4 +94,7 @@ function tresEnRaya() {
   printBoard();
 }
 
+console.log("Hola!, bienvenido al juego de tres en raya");
 tresEnRaya();
+
+
